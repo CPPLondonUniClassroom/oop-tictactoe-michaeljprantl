@@ -1,4 +1,5 @@
 #pragma once
+
 #include "interface/IRenderer.h"
 
 class Renderer : public IRenderer {

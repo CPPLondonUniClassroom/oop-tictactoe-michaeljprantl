@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
-
 #include "BoardPosition.h"
+
+#include <vector>
 
 class IPlayer {
 public:

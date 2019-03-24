@@ -6,7 +6,7 @@ std::vector<BoardPosition> Board::FreePositions() const {
 	std::vector<BoardPosition> free;
 
 	for (int i = 0; i < 9; ++i) {
-		if (board[i] != 'X' || board[i] != 'O') {
+		if (board[i] == 0) {
 			free.emplace_back(NumberToBoardPosition(i));
 		}
 	}
@@ -16,7 +16,8 @@ std::vector<BoardPosition> Board::FreePositions() const {
 
 // Place the current players choice on the board
 void Board::OccupyPosition(const BoardPosition& pos, const IPlayer& player) {
-	// TODO
+	char position = BoardPositionToChar(pos);
+	board[position] = player.Symbol();
 }
 
 // Dump the current state of the board

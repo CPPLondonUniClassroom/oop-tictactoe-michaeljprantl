@@ -1,7 +1,7 @@
-#include <iostream>
-
 #include "Renderer.h"
 #include "utility.h"
+
+#include <iostream>
 
 // Helper function: Convert free board positions to whitespace
 static char ZeroToSpace(char c) {

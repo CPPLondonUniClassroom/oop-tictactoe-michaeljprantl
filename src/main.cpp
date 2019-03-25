@@ -10,7 +10,7 @@
 
 int main() {
 	while (true) {
-		// TODO: Main menu, choose symbols, players etc.
+		// Main menu, choose symbols, players etc.
 		PrintMessage(
 			"Welcome to CPPLondonUni TicTacToe!\n",
 			"This game is played with 2 players ",
@@ -24,14 +24,44 @@ int main() {
 		);
 
 		int no_players = ReadNumber(0, 2);
+		char difficulty = NULL;
+
+		// If playing with AI players, choose difficulty
+		if (no_players < 2) {
+			Difficulty ai =Difficulty::none;
+			do {
+				PrintMessage(
+					"Please select difficulty mode for computer opponent:\n",
+					"Easy Mode  : E\nMedium Mode: M\nHard Mode  : H\n > "
+				);
+				std::cin >> difficulty;
+
+				switch (std::tolower(difficulty)) {
+				case 'e':
+					ai = Difficulty::easy;
+					break;
+				case 'm':
+					ai = Difficulty::medium;
+					break;
+				case 'h':
+					ai = Difficulty::hard;
+					break;
+				default:
+					PrintMessage("ERROR: Enter a valid character\n");
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					break;
+				}
+
+			} while (ai == Difficulty::none);
+		}
 
 		std::vector<char> symbol{ 'X', 'O' };
 		char ans = NULL;
 
 		PrintMessage(
-			"Player 1, please choose your symbol ",
-			"from the following: ", symbol[0], " or ",
-			symbol[1], ".\n > "
+			"Player 1, please choose your symbol from the following: ", 
+			symbol[0], " or ", symbol[1], ".\n > "
 		);
 
 		std::cin >> ans;
@@ -47,19 +77,18 @@ int main() {
 			std::swap(symbol[0], symbol[1]);
 		};
 
-		// TODO: Initialize variables
+		// TODO: Initialize variables, account for AI players
 		HumanPlayer player1(symbol[0]);
 		HumanPlayer player2(symbol[1]);
 		Renderer renderer;
 		Board board;
 
-		// TODO: Initialize Controller
+		// Initialize Game
 		Controller controller(player1, player2, renderer, board);
 
-		// TODO: controller.PlayGame()
 		controller.PlayGame();
 
-		// TODO: Wrap up game, ask whether to go back to main
+		// Wrap up game, ask whether to go back to main
 		PrintMessage(
 			"Game finished. That was fun! \nWould ",
 			"you like to play another round? (y/N)",
@@ -77,7 +106,7 @@ int main() {
 
 		if (std::tolower(ans) != 'y') {
 			PrintMessage(
-				"\nYou pressed '", ans, "'. Such a "
+				"\nYou chose '", ans, "'. Such a "
 				"pity. It was a lot of fun with ",
 				"you. See you next time!\n"
 			);

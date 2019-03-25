@@ -4,9 +4,10 @@
 #include "BoardPosition.h"
 #include "utility.h"
 
-// TODO: Implement difficulty choices
 enum class Difficulty : char {
+	none,
 	easy,
+	medium,
 	hard
 };
 

@@ -1,6 +1,9 @@
 #include "HumanPlayer.h"
 
 #include <set>
+#include <algorithm>
+#include <thread>
+#include <chrono>
 
 // Return the symbol of the current player ('X' or 'O')
 char HumanPlayer::Symbol() const {
@@ -54,6 +57,8 @@ char NonHumanPlayer::Symbol() const {
 BoardPosition NonHumanPlayer::TakeTurn(const std::vector<BoardPosition>& pos) {
 	int choice;
 
+	// TODO: Implement random pause to simulate thinking process
+
 	// TODO: Implement hard mode
 	if (difficulty == Difficulty::hard) {
 
@@ -61,7 +66,8 @@ BoardPosition NonHumanPlayer::TakeTurn(const std::vector<BoardPosition>& pos) {
 
 	// TODO: Implement easy mode
 	else {
-		
+		int sample = rand() % pos.size();
+		choice = BoardPositionToInt(pos[sample]);
 	}
 
 	return NumberToBoardPosition(choice);

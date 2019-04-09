@@ -57,18 +57,13 @@ char NonHumanPlayer::Symbol() const {
 BoardPosition NonHumanPlayer::TakeTurn(const std::vector<BoardPosition>& pos) {
 	int choice;
 
-	// TODO: Implement random pause to simulate thinking process
+	PrintMessage('\n');
 
-	// TODO: Implement hard mode
-	if (difficulty == Difficulty::hard) {
+	// Random pause between 0.5 - 2.5ms to simulate thinking process
+	std::this_thread::sleep_for(std::chrono::milliseconds((rand() + 500) % 2500));
 
-	}
-
-	// TODO: Implement easy mode
-	else {
-		int sample = rand() % pos.size();
-		choice = BoardPositionToInt(pos[sample]);
-	}
+	int sample = rand() % pos.size();
+	choice = BoardPositionToInt(pos[sample]);
 
 	return NumberToBoardPosition(choice);
 }

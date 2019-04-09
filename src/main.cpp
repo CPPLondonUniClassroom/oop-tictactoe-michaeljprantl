@@ -24,38 +24,8 @@ int main() {
 		);
 
 		int no_players = ReadNumber(0, 2);
-		char difficulty = NULL;
 
-		// If playing with AI players, choose difficulty
-		if (no_players < 2) {
-			Difficulty ai =Difficulty::none;
-			do {
-				PrintMessage(
-					"Please select difficulty mode for computer opponent:\n",
-					"Easy Mode  : E\nMedium Mode: M\nHard Mode  : H\n > "
-				);
-				std::cin >> difficulty;
-
-				switch (std::tolower(difficulty)) {
-				case 'e':
-					ai = Difficulty::easy;
-					break;
-				case 'm':
-					ai = Difficulty::medium;
-					break;
-				case 'h':
-					ai = Difficulty::hard;
-					break;
-				default:
-					PrintMessage("ERROR: Enter a valid character\n");
-					std::cin.clear();
-					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-					break;
-				}
-
-			} while (ai == Difficulty::none);
-		}
-
+		// Choose Symbol
 		std::vector<char> symbol{ 'X', 'O' };
 		char ans = NULL;
 
@@ -78,13 +48,34 @@ int main() {
 		};
 
 		// TODO: Initialize variables, account for AI players
-		HumanPlayer player1(symbol[0]);
-		HumanPlayer player2(symbol[1]);
+		IPlayer *player1 = nullptr;
+		IPlayer *player2 = nullptr;
+
+		HumanPlayer pc1(symbol[0]);
+		HumanPlayer pc2(symbol[1]);
+		NonHumanPlayer npc1(symbol[1]);
+		NonHumanPlayer npc2(symbol[0]);
+
+		switch (no_players) {
+		case 2:
+			player1 = &pc1;
+			player2 = &pc2;
+			break;
+		case 1:
+			player1 = &pc1;
+			player2 = &npc1;
+			break;
+		default:
+			player1 = &npc2;
+			player2 = &npc1;
+			break;
+		}
+
 		Renderer renderer;
 		Board board;
 
 		// Initialize Game
-		Controller controller(player1, player2, renderer, board);
+		Controller controller(*player1, *player2, renderer, board);
 
 		controller.PlayGame();
 

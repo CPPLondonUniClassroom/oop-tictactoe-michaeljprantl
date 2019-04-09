@@ -19,12 +19,10 @@ public:
 	BoardPosition TakeTurn(const std::vector<BoardPosition>& pos) override;
 };
 
-// TODO: Implement NonHumanPlayer
 class NonHumanPlayer : public IPlayer {
 	char symbol;
-	Difficulty difficulty;
 public:
-	NonHumanPlayer(char symbol, Difficulty difficulty) : symbol(symbol), difficulty(difficulty) {}
+	NonHumanPlayer(char symbol) : symbol(symbol) {}
 	char Symbol() const override;
 	BoardPosition TakeTurn(const std::vector<BoardPosition>& pos) override;
 };
